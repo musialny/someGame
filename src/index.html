@@ -3,9 +3,16 @@
   <head>
     <meta charset="UTF-8">
     <title><%= htmlWebpackPlugin.options.title %></title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        overflow: hidden;
+      }
+    </style>
   </head>
     <body>
-      <canvas id="canvas" style="background-color: black;"></canvas>
-      <h5 id="coords">X: Y: </h5>
+      <canvas id="canvas"></canvas>
     </body>
 </html>
