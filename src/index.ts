@@ -3,5 +3,9 @@ import Engine from "./Engine/Engine";
 import World from "./Engine/World";
 
 window.onload = function () {
-    new Engine(new Window(<HTMLCanvasElement> document.getElementById("canvas")), [new World()]);
+    try {
+        new Engine(new Window(<HTMLCanvasElement>document.getElementById("canvas")), [new World()]);
+    } catch (err) {
+        console.log(`{Error -> ${err.message}}`);
+    }
 }
