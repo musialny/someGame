@@ -1,6 +1,7 @@
 import Window from "./Engine/Window";
 import Engine from "./Engine/Engine";
+import World from "./Engine/World";
 
 window.onload = function () {
-    const window = new Window(<HTMLCanvasElement> document.getElementById("canvas"));
+    new Engine(new Window(<HTMLCanvasElement> document.getElementById("canvas")), [new World()]);
 }
