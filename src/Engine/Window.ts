@@ -3,7 +3,7 @@ import {Vector2D} from "./Containers";
 class Window {
     private readonly _canvas: HTMLCanvasElement;
     private readonly _context2D: CanvasRenderingContext2D | null;
-    private _mousePosition: Vector2D<number>
+    private _mousePosition: Vector2D<number>;
 
     constructor(canvas: HTMLCanvasElement, backgroundColor: string = "black") {
         if (canvas === null)
@@ -15,7 +15,7 @@ class Window {
             throw Error("[Can not create 2D Canvas Context]");
 
         this._mousePosition = {x: 0, y: 0};
-        const getMousePositionEvent = (event: MouseEvent) => this._mousePosition = {x: event.pageX, y: event.pageY < 0 ? 0 : event.pageY};
+        const getMousePositionEvent = (event: MouseEvent) => this._mousePosition = { x: event.pageX, y: event.pageY < 0 ? 0 : event.pageY };
         this._canvas.addEventListener("mousemove", getMousePositionEvent, false);
         this._canvas.addEventListener("mouseenter", getMousePositionEvent, false);
         this._canvas.addEventListener("mouseleave", getMousePositionEvent, false);
@@ -28,15 +28,15 @@ class Window {
         window.addEventListener("resize", resizeCanvas);
     }
 
-    get mousePosition() {
+    public get mousePosition() {
         return this._mousePosition;
     }
 
-    get contextSize() {
+    public get contextSize() {
         return <Vector2D<number>> {x: this._canvas.width, y: this._canvas.height};
     }
 
-    get context() {
+    public get context() {
         return this._context2D;
     }
 }

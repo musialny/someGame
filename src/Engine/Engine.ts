@@ -1,5 +1,7 @@
 import Window from "./Window";
 import World from "./World";
+import {Vector2D} from "./Containers";
+import WorldObject from "./WorldObject";
 
 class Engine {
     private readonly _window: Window;
@@ -35,6 +37,7 @@ class Engine {
             }
             const t0 = performance.now();
             const result = this._worlds[this._activeWorld].update(elapsedTime);
+            this.renderFrame(this._worlds[this._activeWorld].cameraPosition, this._worlds[this._activeWorld].worldObjects);
             const t1 = performance.now();
             elapsedTime = t1 - t0;
             if (result) {
@@ -45,10 +48,13 @@ class Engine {
         };
         if (!this._isLoopStarted)
             requestAnimationFrame(gameLoop);
+    }
+
+    private renderFrame(cameraPosition: Vector2D<number>, worldObjects: WorldObject[]) {
 
     }
 
-    get activeWorld() {
+    public get activeWorld() {
         return this._activeWorld;
     }
 }
