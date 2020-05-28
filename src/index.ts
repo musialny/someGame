@@ -12,10 +12,6 @@ class Log extends WorldObject {
 
     public setup() {
         console.log("Log setup() was called.");
-        // this._world?.addWorldObject(new Log1("Log1", {x: 0, y: 0}, new RectanglePrimitive({x: 10, y: 15}, "#ff0000")));
-        this._world?.addWorldObject(new Log2("Log2", {x: 0, y: 0}));
-        this._world?.addWorldObject(new Log3("Log3", {x: 0, y: 0}));
-        this._world?.addWorldObject(new Log4("Log4", {x: 0, y: 0}));
     }
 
     public update(elapsedTime: DOMHighResTimeStamp): boolean {
@@ -45,58 +41,13 @@ class Log1 extends WorldObject {
     private timer = 0;
     public update(elapsedTime: DOMHighResTimeStamp): boolean {
         this.timer += elapsedTime;
-        console.log(`Log1 ( ${JSON.stringify(this._engine?.window.contextSize)} )`);
+        console.log(`Log1 ( ${this._engine?.window.keyDown} )`);
         if (this.timer > 100) {
             this.timer = 0;
             this.transform.x += 100;
             this.transform.y += 100;
         }
 
-        return true;
-    }
-}
-
-class Log2 extends WorldObject {
-    constructor(id: string, transform: Vector2D<number>) {
-        super(id, transform, new EmptyPrimitive());
-    }
-
-    public setup() {
-        console.log("Log2 setup() was called.");
-    }
-
-    public update(elapsedTime: DOMHighResTimeStamp): boolean {
-        console.log(`Log2 ( ${JSON.stringify(this._engine?.window.contextSize)} )`);
-        return true;
-    }
-}
-
-class Log3 extends WorldObject {
-    constructor(id: string, transform: Vector2D<number>) {
-        super(id, transform, new EmptyPrimitive());
-    }
-
-    public setup() {
-        console.log("Log3 setup() was called.");
-    }
-
-    public update(elapsedTime: DOMHighResTimeStamp): boolean {
-        console.log("Log3");
-        return true;
-    }
-}
-
-class Log4 extends WorldObject {
-    constructor(id: string, transform: Vector2D<number>) {
-        super(id, transform, new EmptyPrimitive());
-    }
-
-    public setup() {
-        console.log("Log4 setup() was called.");
-    }
-
-    public update(elapsedTime: DOMHighResTimeStamp): boolean {
-        console.log("Log4");
         return true;
     }
 }
