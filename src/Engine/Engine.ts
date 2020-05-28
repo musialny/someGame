@@ -50,12 +50,20 @@ class Engine {
             requestAnimationFrame(gameLoop);
     }
 
-    private renderFrame(cameraPosition: Vector2D<number>, worldObjects: WorldObject[]) {
+    private renderFrame(cameraPosition: Vector2D<number>, worldObjects: Map<string, WorldObject>) {
 
     }
 
-    public get activeWorld() {
+    get isSetupStarted(): boolean {
+        return this._isSetupStarted;
+    }
+
+    public get activeWorld(): number {
         return this._activeWorld;
+    }
+
+    public get window(): Window {
+        return this._window;
     }
 }
 

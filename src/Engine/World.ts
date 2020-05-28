@@ -3,13 +3,16 @@ import Engine from "./Engine";
 import {Vector2D} from "./Containers";
 
 class World {
-    private _worldObjects: WorldObject[];
-    private _cameraPosition: Vector2D<number>;
+    public readonly worldObjects: Map<string, WorldObject>;
+    public cameraPosition: Vector2D<number>;
     private _engine: Engine | null;
 
     constructor(worldObjects: WorldObject[], cameraPosition: Vector2D<number> = {x: 0, y: 0}) {
-        this._worldObjects = worldObjects;
-        this._cameraPosition = cameraPosition;
+        this.worldObjects = new Map<string, WorldObject>();
+        for (let i = 0; i < worldObjects.length; i++) {
+            this.worldObjects.set(worldObjects[i].id, worldObjects[i]);
+        }
+        this.cameraPosition = cameraPosition;
         this._engine = null;
     }
 
@@ -18,27 +21,41 @@ class World {
     }
 
     public setup() {
-        for (let i = 0; i < this._worldObjects.length; i++)
-            this._worldObjects[i].setup();
+        for (let [key, value] of this.worldObjects) {
+            value.bindEngineInstance(<Engine> this._engine);
+            value.bindWorldInstance(this);
+            value.setup();
+        }
     }
 
     public update(elapsedTime: DOMHighResTimeStamp): boolean {
-        for (let i = 0; i < this._worldObjects.length; i++)
-            if (!this._worldObjects[i].update(elapsedTime))
+        for (let [key, value] of this.worldObjects)
+            if (!value.update(elapsedTime))
                 return false;
         return true;
     }
 
-    public get cameraPosition() {
-        return this._cameraPosition;
+    public addWorldObject(worldObject: WorldObject): void {
+        if (this._engine?.isSetupStarted) {
+            worldObject.bindEngineInstance(<Engine> this._engine);
+            worldObject.bindWorldInstance(this);
+            worldObject.setup();
+        }
+        if (!this.worldObjects.has(worldObject.id))
+            this.worldObjects.set(worldObject.id, worldObject);
+        else throw Error(`[Multiplication of Object ID: ${worldObject.id}]`);
     }
 
-    public get worldObjects() {
-        return this._worldObjects;
+    public removeWorldObject(id: string): void {
+        this.worldObjects.delete(id);
     }
 
-    public get engine() {
-        return this._engine;
+    public getWorldObject(id: string): WorldObject {
+        return <WorldObject> this.worldObjects.get(id);
+    }
+
+    public get worldObjectsCount(): number {
+        return this.worldObjects.size;
     }
 
 }

@@ -15,7 +15,7 @@ class Window {
             throw Error("[Can not create 2D Canvas Context]");
 
         this._mousePosition = {x: 0, y: 0};
-        const getMousePositionEvent = (event: MouseEvent) => this._mousePosition = { x: event.pageX, y: event.pageY < 0 ? 0 : event.pageY };
+        const getMousePositionEvent = (event: MouseEvent) => this._mousePosition = {x: event.pageX  < 0 ? 0 : event.pageX, y: event.pageY < 0 ? 0 : event.pageY};
         this._canvas.addEventListener("mousemove", getMousePositionEvent, false);
         this._canvas.addEventListener("mouseenter", getMousePositionEvent, false);
         this._canvas.addEventListener("mouseleave", getMousePositionEvent, false);
