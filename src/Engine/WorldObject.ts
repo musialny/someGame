@@ -26,6 +26,14 @@ abstract class WorldObject {
         this._world = world;
     }
 
+    public get texture(): Texture {
+        return this._texture;
+    }
+
+    public get transform(): Vector2D<number> {
+        return this._transform;
+    }
+
     public abstract setup(): void;
 
     public abstract update(elapsedTime: DOMHighResTimeStamp): boolean;

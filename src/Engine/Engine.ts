@@ -51,7 +51,9 @@ class Engine {
     }
 
     private renderFrame(cameraPosition: Vector2D<number>, worldObjects: Map<string, WorldObject>) {
-
+        this._window.context?.clearRect(0, 0, this._window.contextSize.x, this._window.contextSize.y);
+        for (let [key, value] of worldObjects)
+            value.texture.draw(<CanvasRenderingContext2D> this._window.context, value.transform);
     }
 
     get isSetupStarted(): boolean {
