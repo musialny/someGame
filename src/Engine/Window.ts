@@ -4,7 +4,7 @@ class Window {
     private readonly _canvas: HTMLCanvasElement;
     private readonly _context2D: CanvasRenderingContext2D | null;
     private _mousePosition: Vector2D<number>;
-    private _keyDown: string;
+    private _keyLogger: Map<string, string>;
 
     constructor(canvas: HTMLCanvasElement, backgroundColor: string = "black") {
         if (canvas === null)
@@ -15,9 +15,13 @@ class Window {
         if (this._context2D === null)
             throw Error("[Can not create 2D Canvas Context]");
 
-        this._keyDown = "";
-        const getKeyDownCode = (event: KeyboardEvent) => {this._keyDown = event.code};
-        const clearKeyDownCode = (event: KeyboardEvent) => {if (event.code) this._keyDown = ""};
+        this._keyLogger = new Map<string, string>();
+        const getKeyDownCode = (event: KeyboardEvent) => {
+            this._keyLogger.set(event.code, "keydown");
+        };
+        const clearKeyDownCode = (event: KeyboardEvent) => {
+            this._keyLogger.set(event.code, "keyup");
+        };
         window.addEventListener("keydown", getKeyDownCode);
         window.addEventListener("keyup", clearKeyDownCode);
 
@@ -39,8 +43,8 @@ class Window {
         return this._mousePosition;
     }
 
-    public get keyDown(): string {
-        return this._keyDown;
+    public get keyLogger(): Map<string, string> {
+        return this._keyLogger;
     }
 
     public get contextSize(): Vector2D<number> {
