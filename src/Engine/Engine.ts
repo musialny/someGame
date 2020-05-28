@@ -30,18 +30,19 @@ class Engine {
         this._isSetupStarted = false;
 
         let elapsedTime = 0;
+        let lastElapsedTimestamp = 0;
         const gameLoop = () => {
             if (!this._isSetupStarted) {
                 this._worlds[this._activeWorld].setup();
                 this._isSetupStarted = true;
             }
-            const t0 = performance.now();
             const result = this._worlds[this._activeWorld].update(elapsedTime);
             this.renderFrame(this._worlds[this._activeWorld].cameraPosition, this._worlds[this._activeWorld].worldObjects);
-            const t1 = performance.now();
-            elapsedTime = t1 - t0;
             if (result) {
                 this._isLoopStarted = true;
+                const timestamp = performance.now();
+                elapsedTime = timestamp - lastElapsedTimestamp;
+                lastElapsedTimestamp = timestamp;
                 requestAnimationFrame(gameLoop);
             } else this._isLoopStarted = false;
 

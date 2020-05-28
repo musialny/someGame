@@ -41,11 +41,10 @@ class Log1 extends WorldObject {
     private timer = 0;
     public update(elapsedTime: DOMHighResTimeStamp): boolean {
         this.timer += elapsedTime;
-        console.log(`Log1 ( ${this._engine?.window.keyDown} )`);
-        if (this.timer > 100) {
+        if (this.timer >= 1) {
             this.timer = 0;
-            this.transform.x += 100;
-            this.transform.y += 100;
+            this.transform.x += 1;
+            this.transform.y += 0.4;
         }
 
         return true;
