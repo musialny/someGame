@@ -1,3 +1,10 @@
+/*
+ * When I wrote this, only God and I understood what I was doing
+ * Now, God only knows
+ *
+ * Created by musialny.dev
+ */
+
 import Window from "./Engine/Window";
 import Engine from "./Engine/Engine";
 import World from "./Engine/World";
@@ -7,18 +14,17 @@ import {Vector2D} from "./Engine/Containers";
 import {RectanglePrimitive, TextHUDPrimitive} from "./Engine/Texture";
 
 /*
-*
-* TODO Create Z Index
-* TODO Create Objects Child <-> Parent relation system
-* TODO Create constant FoV
-* TODO Create image loader and renderer
-*
+ *
+ * TODO Create Objects Child <-> Parent relation system
+ * TODO Create constant FoV
+ * TODO Create image loader and renderer
+ *
  */
 
 class Box extends WorldObject {
     private static _id: number = 0;
     constructor(transform: Vector2D<number>, size: number) {
-        super("Box" + Box._id, transform, new RectanglePrimitive({x: size, y: size}, "#059846"));
+        super("Box" + Box._id, transform, new RectanglePrimitive({x: size, y: size}, 0, "#059846"));
         Box._id++;
     }
 

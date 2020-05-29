@@ -1,3 +1,10 @@
+/*
+ * When I wrote this, only God and I understood what I was doing
+ * Now, God only knows
+ *
+ * Created by musialny.dev
+ */
+
 import Window from "./Window";
 import World from "./World";
 import {Vector2D} from "./Containers";
@@ -52,14 +59,21 @@ class Engine {
     }
 
     private renderFrame(cameraPosition: Vector2D<number>, worldObjects: Map<string, WorldObject>) {
-        this._window.context?.clearRect(0, 0, this._window.contextSize.x, this._window.contextSize.y);
-        for (let [key, value] of worldObjects) {
-            const position: Vector2D<number> = {x: value.transform.x - cameraPosition.x, y: value.transform.y - cameraPosition.y};
-            if (position.x + cameraPosition.x + value.texture.size.x >= cameraPosition.x &&
-                position.y + cameraPosition.y + value.texture.size.y  >= cameraPosition.y &&
-                position.x <= this._window.contextSize.x && position.y <= this._window.contextSize.y)
-                    value.texture.draw(<CanvasRenderingContext2D> this._window.context, position);
-            value.texture.drawAbsolute(<CanvasRenderingContext2D> this._window.context, value.transform);
+        this._window.context?.clearRect(0, 0, this._window.contextSize.x, this._window.contextSize.y);44
+        for (let zIndex = 0; zIndex <= 10; zIndex++) {
+            for (let [key, value] of worldObjects) {
+                if (value.texture.zIndex === zIndex) {
+                    const position: Vector2D<number> = {
+                        x: value.transform.x - cameraPosition.x,
+                        y: value.transform.y - cameraPosition.y
+                    };
+                    if (position.x + cameraPosition.x + value.texture.size.x >= cameraPosition.x &&
+                        position.y + cameraPosition.y + value.texture.size.y >= cameraPosition.y &&
+                        position.x <= this._window.contextSize.x && position.y <= this._window.contextSize.y)
+                        value.texture.draw(<CanvasRenderingContext2D>this._window.context, position);
+                    value.texture.drawAbsolute(<CanvasRenderingContext2D>this._window.context, value.transform);
+                }
+            }
         }
     }
 

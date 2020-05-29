@@ -1,3 +1,10 @@
+/*
+ * When I wrote this, only God and I understood what I was doing
+ * Now, God only knows
+ *
+ * Created by musialny.dev
+ */
+
 import {Vector2D} from "./Containers";
 
 class Window {

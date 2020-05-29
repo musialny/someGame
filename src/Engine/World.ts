@@ -1,3 +1,10 @@
+/*
+ * When I wrote this, only God and I understood what I was doing
+ * Now, God only knows
+ *
+ * Created by musialny.dev
+ */
+
 import WorldObject from "./WorldObject";
 import Engine from "./Engine";
 import {Vector2D} from "./Containers";
