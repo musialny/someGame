@@ -10,6 +10,7 @@ class World {
     constructor(worldObjects: WorldObject[], cameraPosition: Vector2D<number> = {x: 0, y: 0}) {
         this.worldObjects = new Map<string, WorldObject>();
         for (let i = 0; i < worldObjects.length; i++) {
+            if (this.worldObjects.has(worldObjects[i].id)) throw Error(`[Multiplication of Object ID: ${worldObjects[i].id}]`);
             this.worldObjects.set(worldObjects[i].id, worldObjects[i]);
         }
         this.cameraPosition = cameraPosition;
