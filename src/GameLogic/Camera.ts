@@ -10,7 +10,6 @@ class Camera extends WorldObject {
     public setup() {}
 
     public update(elapsedTime: DOMHighResTimeStamp): boolean {
-        console.log(this.absoluteTransform);
         if(this.absoluteTransform.x < 0) {
             if (!(this.absoluteTransform.y < 0 || this.absoluteTransform.y > 1080)) {
                 // @ts-ignore

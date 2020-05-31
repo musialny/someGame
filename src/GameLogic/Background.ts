@@ -17,14 +17,17 @@ class Background extends WorldObject {
     private _player: Player | undefined;
     private _camera: Camera | undefined;
 
-    private _timer = 0;
-    private _moveDistance = 0;
+    private _timer: number;
+    private _moveDistance: number;
 
     constructor(transform: Vector2D<number>, texture: ImageTexture) {
         super("Background" + Background._id++, transform, texture);
         this._isNextBackgroundSummoned = false;
         this._player = undefined;
         this._camera = undefined;
+        this._timer = 0;
+        this._moveDistance = 0;
+
     }
 
     public setup() {
