@@ -7,21 +7,8 @@
 
 import WorldObject from "../Engine/WorldObject";
 import {Vector2D} from "../Engine/Containers";
-import {EmptyPrimitive, RectanglePrimitive} from "../Engine/Texture";
-
-class Camera extends WorldObject {
-    constructor(transform: Vector2D<number>, parent: string = "Player") {
-        super("Camera", transform, new EmptyPrimitive(), parent);
-    }
-
-    public setup() {}
-
-    public update(elapsedTime: DOMHighResTimeStamp): boolean {
-        // @ts-ignore
-        this._world?.cameraPosition = this.absoluteTransform;
-        return true;
-    }
-}
+import {RectanglePrimitive} from "../Engine/Texture";
+import Camera from "./Camera";
 
 class Player extends WorldObject {
     public readonly moveDistance: number;
@@ -38,12 +25,21 @@ class Player extends WorldObject {
     private timer = 0;
     public update(elapsedTime: DOMHighResTimeStamp): boolean {
         this.timer += elapsedTime;
-        if (this._engine?.window.keyLogger.get("KeyW") === "keydown")
-            this._transform.y -= this.moveDistance * elapsedTime;
-        if (this._engine?.window.keyLogger.get("KeyS") === "keydown")
-            this._transform.y += this.moveDistance * elapsedTime;
-        if (this._engine?.window.keyLogger.get("KeyA") === "keydown")
-            this._transform.x -= this.moveDistance * elapsedTime;
+        if (this._engine?.window.keyLogger.get("KeyW") === "keydown") {
+            const transform = this._transform.y - this.moveDistance * elapsedTime;
+            if (transform >= 0)
+                this._transform.y = transform;
+        }
+        if (this._engine?.window.keyLogger.get("KeyS") === "keydown") {
+            const transform = this._transform.y + this.moveDistance * elapsedTime;
+            if (transform <= 2160 - this._texture.size.y)
+            this._transform.y = transform;
+        }
+        if (this._engine?.window.keyLogger.get("KeyA") === "keydown") {
+            const transform = this._transform.x - this.moveDistance * elapsedTime;
+            if (transform >= 0)
+            this._transform.x = transform;
+        }
         if (this._engine?.window.keyLogger.get("KeyD") === "keydown")
             this._transform.x += this.moveDistance * elapsedTime;
         return true;
