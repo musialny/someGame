@@ -11,7 +11,7 @@ import {TextHUDPrimitive} from "../Engine/Texture";
 
 class FPSHUDCounter extends WorldObject {
     constructor(transform: Vector2D<number>) {
-        super("FPSHUDCounter", transform, new TextHUDPrimitive("OwO", "24px serif", "#8300bc"));
+        super("FPSHUDCounter", transform, new TextHUDPrimitive("OwO", "24px serif", "#ffffff"));
     }
 
     setup() {}

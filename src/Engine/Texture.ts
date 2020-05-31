@@ -18,7 +18,7 @@ abstract class Texture {
         this._zIndex = zIndex;
     }
 
-    public abstract draw(context: CanvasRenderingContext2D, pos: Vector2D<number>): void;
+    public abstract draw(context: CanvasRenderingContext2D, pos: Vector2D<number>, size: Vector2D<number>): void;
 
     public abstract drawAbsolute(context: CanvasRenderingContext2D, pos: Vector2D<number>): void;
 
@@ -38,7 +38,7 @@ class EmptyPrimitive extends Texture {
         super({x: 0, y: 0}, 0);
     }
 
-    public draw(context: CanvasRenderingContext2D, pos: Vector2D<number>) {}
+    public draw(context: CanvasRenderingContext2D, pos: Vector2D<number>, size: Vector2D<number>) {}
 
     public drawAbsolute(context: CanvasRenderingContext2D, pos: Vector2D<number>) {}
 }
@@ -50,9 +50,9 @@ class RectanglePrimitive extends Texture {
         this.color = color;
     }
 
-    public draw(context: CanvasRenderingContext2D, pos: Vector2D<number>): void {
+    public draw(context: CanvasRenderingContext2D, pos: Vector2D<number>, size: Vector2D<number>): void {
         context.fillStyle = this.color;
-        context.fillRect(pos.x, pos.y, this.size.x, this.size.y);
+        context.fillRect(pos.x, pos.y, size.x, size.y);
     }
 
     public drawAbsolute(context: CanvasRenderingContext2D, pos: Vector2D<number>) {}
@@ -70,7 +70,7 @@ class TextHUDPrimitive extends Texture {
         this.font = font;
     }
 
-    public draw(context: CanvasRenderingContext2D, pos: Vector2D<number>) {}
+    public draw(context: CanvasRenderingContext2D, pos: Vector2D<number>, size: Vector2D<number>) {}
 
     public drawAbsolute(context: CanvasRenderingContext2D, pos: Vector2D<number>) {
         context.fillStyle = this.color;
@@ -83,9 +83,9 @@ class ImageTexture extends Texture {
     private readonly _image: HTMLImageElement;
     private _placeholder: RectanglePrimitive;
     private _isImageLoaded: boolean;
-    constructor(size: Vector2D<number>, zIndex: number, url: string) {
+    constructor(size: Vector2D<number>, zIndex: number, url: string, placeholderColor: string = "#e600ff") {
         super(size, zIndex);
-        this._placeholder = new RectanglePrimitive(size, zIndex, "#e600ff")
+        this._placeholder = new RectanglePrimitive(size, zIndex, placeholderColor);
         this._isImageLoaded = false;
         this._image = new Image();
         this._image.src = url;
@@ -94,10 +94,10 @@ class ImageTexture extends Texture {
         });
     }
 
-    public draw(context: CanvasRenderingContext2D, pos: Vector2D<number>) {
+    public draw(context: CanvasRenderingContext2D, pos: Vector2D<number>, size: Vector2D<number>) {
         if (this._isImageLoaded)
-            context.drawImage(this._image, pos.x, pos.y, this.size.x, this.size.y);
-        else this._placeholder.draw(context, pos);
+            context.drawImage(this._image, pos.x, pos.y, size.x, size.y);
+        else this._placeholder.draw(context, pos, size);
     }
 
     public drawAbsolute(context: CanvasRenderingContext2D, pos: Vector2D<number>) {}

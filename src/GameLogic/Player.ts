@@ -7,7 +7,21 @@
 
 import WorldObject from "../Engine/WorldObject";
 import {Vector2D} from "../Engine/Containers";
-import {RectanglePrimitive} from "../Engine/Texture";
+import {EmptyPrimitive, RectanglePrimitive} from "../Engine/Texture";
+
+class Camera extends WorldObject {
+    constructor(transform: Vector2D<number>, parent: string = "Player") {
+        super("Camera", transform, new EmptyPrimitive(), parent);
+    }
+
+    public setup() {}
+
+    public update(elapsedTime: DOMHighResTimeStamp): boolean {
+        // @ts-ignore
+        this._world?.cameraPosition = this.absoluteTransform;
+        return true;
+    }
+}
 
 class Player extends WorldObject {
     public readonly moveDistance: number;
@@ -16,13 +30,13 @@ class Player extends WorldObject {
         this.moveDistance = 1.5;
     }
 
-    setup() {
+    public setup() {
         // @ts-ignore
-        // this._world?.cameraPosition = {x: this._transform.x - (this._engine?.window.contextSize.x / 2 - this._texture.size.x / 2), y: this._transform.y - (this._engine?.window.contextSize.y / 2 - this._texture.size.y / 2)};
+        this._world?.addWorldObject(new Camera({x: (-this._engine?.fov.x / 2) + (this._texture.size.x / 2), y: (-this._engine?.fov.y / 2) + (this._texture.size.y / 2)}));
     }
 
     private timer = 0;
-    update(elapsedTime: DOMHighResTimeStamp): boolean {
+    public update(elapsedTime: DOMHighResTimeStamp): boolean {
         this.timer += elapsedTime;
         if (this._engine?.window.keyLogger.get("KeyW") === "keydown")
             this._transform.y -= this.moveDistance * elapsedTime;
@@ -32,10 +46,6 @@ class Player extends WorldObject {
             this._transform.x -= this.moveDistance * elapsedTime;
         if (this._engine?.window.keyLogger.get("KeyD") === "keydown")
             this._transform.x += this.moveDistance * elapsedTime;
-
-        // @ts-ignore
-        this._world?.cameraPosition = {x: this._transform.x - (this._engine?.window.contextSize.x / 2 - this._texture.size.x / 2), y: this._transform.y - (this._engine?.window.contextSize.y / 2 - this._texture.size.y / 2)};
-
         return true;
     }
 }

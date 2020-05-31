@@ -11,6 +11,7 @@ import {Vector2D} from "./Containers";
 import WorldObject from "./WorldObject";
 
 class Engine {
+    public fov: Vector2D<number>;
     private readonly _window: Window;
     private _worlds: World[];
     private _activeWorld: number;
@@ -23,6 +24,7 @@ class Engine {
         this._activeWorld = 0;
         this._isLoopStarted = false;
         this._isSetupStarted = false;
+        this.fov = {x: 1920, y: 1080};
         for (let i = 0; i < this._worlds.length; i++)
             this._worlds[i].bindEngineInstance(this);
 
@@ -63,14 +65,30 @@ class Engine {
         for (let zIndex = 0; zIndex <= 10; zIndex++) {
             for (let [key, value] of worldObjects) {
                 if (value.texture.zIndex === zIndex) {
-                    const transform: Vector2D<number> = {
+                    let transform: Vector2D<number> = {
                         x: value.absoluteTransform.x - cameraPosition.x,
                         y: value.absoluteTransform.y - cameraPosition.y
                     };
-                    if (transform.x + cameraPosition.x + value.texture.size.x >= cameraPosition.x &&
-                        transform.y + cameraPosition.y + value.texture.size.y >= cameraPosition.y &&
+                    const transformProportions: Vector2D<number> = {
+                        x: (this.fov.x - transform.x) / this.fov.x,
+                        y: (this.fov.y - transform.y) / this.fov.y,
+                    };
+                    transform.x = this._window.contextSize.x - (this._window.contextSize.x * transformProportions.x);
+                    transform.y = this._window.contextSize.y - (this._window.contextSize.y * transformProportions.y);
+
+                    const sizeProportions: Vector2D<number> = {
+                        x: value.texture.size.x / this.fov.x,
+                        y: value.texture.size.y / this.fov.y
+                    }
+                    let size: Vector2D<number> = {
+                        x: this._window.contextSize.x * sizeProportions.x,
+                        y: this._window.contextSize.y * sizeProportions.y
+                    }
+
+                    if (transform.x + cameraPosition.x + size.x >= cameraPosition.x &&
+                        transform.y + cameraPosition.y + size.y >= cameraPosition.y &&
                         transform.x <= this._window.contextSize.x && transform.y <= this._window.contextSize.y)
-                        value.texture.draw(<CanvasRenderingContext2D>this._window.context, transform);
+                        value.texture.draw(<CanvasRenderingContext2D>this._window.context, transform, size);
                     value.texture.drawAbsolute(<CanvasRenderingContext2D>this._window.context, value.transform);
                 }
             }
