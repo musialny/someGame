@@ -16,7 +16,7 @@ class Player extends WorldObject {
 
     setup() {
         // @ts-ignore
-        this._world?.cameraPosition = {x: this._transform.x - (this._engine?.window.contextSize.x / 2 - this._texture.size.x / 2), y: this._transform.y - (this._engine?.window.contextSize.y / 2 - this._texture.size.y / 2)};
+        // this._world?.cameraPosition = {x: this._transform.x - (this._engine?.window.contextSize.x / 2 - this._texture.size.x / 2), y: this._transform.y - (this._engine?.window.contextSize.y / 2 - this._texture.size.y / 2)};
     }
 
     private timer = 0;
@@ -33,7 +33,7 @@ class Player extends WorldObject {
             this._transform.x += distance * elapsedTime;
 
         // @ts-ignore
-        // this._world?.cameraPosition = {x: this._transform.x - (this._engine?.window.contextSize.x / 2 - this._texture.size.x / 2), y: this._transform.y - (this._engine?.window.contextSize.y / 2 - this._texture.size.y / 2)};
+        this._world?.cameraPosition = {x: this._transform.x - (this._engine?.window.contextSize.x / 2 - this._texture.size.x / 2), y: this._transform.y - (this._engine?.window.contextSize.y / 2 - this._texture.size.y / 2)};
 
         return true;
     }

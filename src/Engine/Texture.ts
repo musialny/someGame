@@ -80,4 +80,4 @@ class TextHUDPrimitive extends Texture {
 }
 
 export default Texture;
-export {Texture, EmptyPrimitive, RectanglePrimitive, TextHUDPrimitive};
+export {EmptyPrimitive, RectanglePrimitive, TextHUDPrimitive};

@@ -11,7 +11,7 @@ class Window {
     private readonly _canvas: HTMLCanvasElement;
     private readonly _context2D: CanvasRenderingContext2D | null;
     private _mousePosition: Vector2D<number>;
-    private _keyLogger: Map<string, string>;
+    private readonly _keyLogger: Map<string, string>;
 
     constructor(canvas: HTMLCanvasElement, backgroundColor: string = "black") {
         if (canvas === null)
