@@ -40,7 +40,7 @@ class EmptyPrimitive extends Texture {
 
     public draw(context: CanvasRenderingContext2D, pos: Vector2D<number>) {}
 
-    drawAbsolute(context: CanvasRenderingContext2D, pos: Vector2D<number>) {}
+    public drawAbsolute(context: CanvasRenderingContext2D, pos: Vector2D<number>) {}
 }
 
 class RectanglePrimitive extends Texture {
@@ -55,7 +55,7 @@ class RectanglePrimitive extends Texture {
         context.fillRect(pos.x, pos.y, this.size.x, this.size.y);
     }
 
-    drawAbsolute(context: CanvasRenderingContext2D, pos: Vector2D<number>) {}
+    public drawAbsolute(context: CanvasRenderingContext2D, pos: Vector2D<number>) {}
 
 }
 
@@ -72,12 +72,37 @@ class TextHUDPrimitive extends Texture {
 
     public draw(context: CanvasRenderingContext2D, pos: Vector2D<number>) {}
 
-    drawAbsolute(context: CanvasRenderingContext2D, pos: Vector2D<number>) {
+    public drawAbsolute(context: CanvasRenderingContext2D, pos: Vector2D<number>) {
         context.fillStyle = this.color;
         context.font = this.font;
         context.fillText(this.text, pos.x, pos.y);
     }
 }
 
+class ImageTexture extends Texture {
+    private readonly _image: HTMLImageElement;
+    private _placeholder: RectanglePrimitive;
+    private _isImageLoaded: boolean;
+    constructor(size: Vector2D<number>, zIndex: number, url: string) {
+        super(size, zIndex);
+        this._placeholder = new RectanglePrimitive(size, zIndex, "#e600ff")
+        this._isImageLoaded = false;
+        this._image = new Image();
+        this._image.src = url;
+        this._image.addEventListener("load", () => {
+            this._isImageLoaded = true;
+        });
+    }
+
+    public draw(context: CanvasRenderingContext2D, pos: Vector2D<number>) {
+        if (this._isImageLoaded)
+            context.drawImage(this._image, pos.x, pos.y, this.size.x, this.size.y);
+        else this._placeholder.draw(context, pos);
+    }
+
+    public drawAbsolute(context: CanvasRenderingContext2D, pos: Vector2D<number>) {}
+
+}
+
 export default Texture;
-export {EmptyPrimitive, RectanglePrimitive, TextHUDPrimitive};
+export {EmptyPrimitive, RectanglePrimitive, TextHUDPrimitive, ImageTexture};

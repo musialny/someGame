@@ -12,7 +12,7 @@ import {RectanglePrimitive} from "../Engine/Texture";
 class Box extends WorldObject {
     private static _id: number = 0;
     constructor(transform: Vector2D<number>, size: number, parent: string | boolean = false) {
-        super("Box" + Box._id, transform, new RectanglePrimitive({x: size, y: size}, 0, "#059846"), parent);
+        super("Box" + Box._id, transform, new RectanglePrimitive({x: size, y: size}, 1, "#059846"), parent);
         Box._id++;
     }
 

@@ -11,7 +11,7 @@ import {RectanglePrimitive} from "../Engine/Texture";
 
 class Player extends WorldObject {
     constructor(transform: Vector2D<number>) {
-        super("Player", transform, new RectanglePrimitive({x: 100, y: 100}, 1, "#004ec3"));
+        super("Player", transform, new RectanglePrimitive({x: 100, y: 100}, 2, "#004ec3"));
     }
 
     setup() {

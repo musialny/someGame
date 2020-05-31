@@ -7,20 +7,24 @@ module.exports = {
     devtool: "source-map",
     module: {
         rules: [
-          {
-            test: /\.tsx?$/,
-            use: "ts-loader",
-            exclude: /node_modules/
-          }
+            {
+                test: /\.tsx?$/,
+                use: "ts-loader",
+                exclude: /node_modules/
+            },
+            {
+                test: /\.(png|svg|jpg|gif)$/,
+                use: "file-loader",
+            },
         ]
-      },
+    },
     resolve: {
         extensions: [".ts", ".js"],
     },
     plugins: [
         new HtmlWebpackPlugin({
-          title: "Some Nois Game - Dev Build",
-          template: "./src/index.html"
+            title: "Some Nois Game - Dev Build",
+            template: "./src/index.html"
         })
     ],
     output: {

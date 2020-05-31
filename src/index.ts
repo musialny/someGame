@@ -14,6 +14,7 @@ import Player from "./GameLogic/Player";
 // Game Logic
 import Box from "./GameLogic/Box";
 import FPSHUDCounter from "./GameLogic/FPSHUDCounter";
+import Background from "./GameLogic/Background";
 
 /*
  *
@@ -25,6 +26,7 @@ window.onload = function () {
     try {
         new Engine(new Window(<HTMLCanvasElement> document.getElementById("canvas")), [
             new World([
+                new Background({x: 0, y: 0}),
                 new Player({x: 150, y: 200}),
                 new Box({x: 200, y: 500}, 50),
                 new Box({x: 150, y: 150}, 60, "Player"),
