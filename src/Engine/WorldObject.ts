@@ -37,7 +37,7 @@ abstract class WorldObject {
 
     public get absoluteTransform(): Vector2D<number> {
         if (typeof(this.parent) === "string") {
-            let lastObject = this._world?.getWorldObject(this.parent);
+            const lastObject = this._world?.getWorldObject(this.parent);
             if (typeof(lastObject) === "undefined")
                 return this._transform;
             return {x: this._transform.x + lastObject.absoluteTransform.x, y: this._transform.y + lastObject.absoluteTransform.y};
