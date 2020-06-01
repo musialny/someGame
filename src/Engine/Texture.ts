@@ -10,10 +10,12 @@ import {Vector2D} from "./Containers";
 abstract class Texture {
     private _zIndex: number;
 
+    public offset: Vector2D<number>;
     public size: Vector2D<number>;
 
-    protected constructor(size: Vector2D<number>, zIndex: number) {
+    protected constructor(size: Vector2D<number>, zIndex: number, offset: Vector2D<number> = {x: 0, y: 0}) {
         this.size = size;
+        this.offset = offset;
         if (zIndex > 10 || zIndex < 0) throw Error("[zIndex property must have a value between 0 and 10]");
         this._zIndex = zIndex;
     }
@@ -83,13 +85,11 @@ class ImageTexture extends Texture {
     private readonly _image: HTMLImageElement;
     private _placeholder: RectanglePrimitive;
     private _isImageLoaded: boolean;
-    private _moveOffset: Vector2D<number>;
 
-    constructor(size: Vector2D<number>, zIndex: number, url: string, moveOffset: Vector2D<number> = {x: 0, y: 0}, placeholderColor: string = "#e600ff") {
-        super(size, zIndex);
+    constructor(size: Vector2D<number>, zIndex: number, url: string, offset: Vector2D<number> = {x: 0, y: 0}, placeholderColor: string = "#e600ff") {
+        super(size, zIndex, offset);
         this._placeholder = new RectanglePrimitive(size, zIndex, placeholderColor);
         this._isImageLoaded = false;
-        this._moveOffset = moveOffset;
         this._image = new Image();
         this._image.src = url;
         this._image.addEventListener("load", () => {
@@ -99,7 +99,7 @@ class ImageTexture extends Texture {
 
     public draw(context: CanvasRenderingContext2D, pos: Vector2D<number>, size: Vector2D<number>) {
         if (this._isImageLoaded)
-            context.drawImage(this._image, pos.x + this._moveOffset.x, pos.y + this._moveOffset.y, size.x, size.y);
+            context.drawImage(this._image, pos.x, pos.y, size.x, size.y);
         else this._placeholder.draw(context, pos, size);
     }
 

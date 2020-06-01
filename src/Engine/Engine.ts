@@ -66,8 +66,8 @@ class Engine {
             for (let [key, value] of worldObjects) {
                 if (value.texture.zIndex === zIndex) {
                     let transform: Vector2D<number> = {
-                        x: value.absoluteTransform.x - cameraPosition.x,
-                        y: value.absoluteTransform.y - cameraPosition.y
+                        x: value.absoluteTransform.x - cameraPosition.x + value.texture.offset.x,
+                        y: value.absoluteTransform.y - cameraPosition.y + value.texture.offset.y
                     };
                     const transformProportions: Vector2D<number> = {
                         x: (this.fov.x - transform.x) / this.fov.x,
