@@ -81,7 +81,6 @@ class Generator extends WorldObject{
                     platformSpawnPoint = Math.floor(Math.random() * this._platformSpawnPoints.length);
                 } while (avoidDuplication.has(platformSpawnPoint))
                 avoidDuplication.set(platformSpawnPoint, true);
-                console.log(platformSpawnPoint);
                 for (let o = 0; o < platformLength; o++)
                     this._world?.addWorldObject(new Platform({
                         x: this.absoluteTransform.x + this._platformSpawnPoints[platformSpawnPoint].x + (172 * o),
