@@ -9,6 +9,7 @@ import WorldObject from "../Engine/WorldObject";
 import {Vector2D} from "../Engine/Containers";
 import Texture from "../Engine/Texture";
 import Camera from "./Camera";
+import Bullet from "./Bullet";
 
 class Player extends WorldObject {
     public readonly moveDistance: number;
@@ -16,9 +17,11 @@ class Player extends WorldObject {
     private _isJumping: boolean;
     private _faceLeft: boolean;
     private _isGunFiredAnimation: boolean;
+    private _isGunFired: boolean;
     private _fallingTimer: number;
     private _walkAnimationTimer: number;
-    private _GunFiredTimer: number;
+    private _GunFiredAnimationTimer: number;
+    private _isCollide: boolean;
 
     constructor(transform: Vector2D<number>, textures: Texture[]) {
         super("Player", transform, textures[1]);
@@ -27,9 +30,11 @@ class Player extends WorldObject {
         this._isJumping = false;
         this._faceLeft = false;
         this._isGunFiredAnimation = false;
+        this._isGunFired = false;
         this._fallingTimer = 0;
         this._walkAnimationTimer = 0;
-        this._GunFiredTimer = 0;
+        this._GunFiredAnimationTimer = 0;
+        this._isCollide = false;
     }
 
     public setup() {
@@ -37,24 +42,30 @@ class Player extends WorldObject {
         this._world?.addWorldObject(new Camera({x: (-this._engine?.fov.x / 2) + (this._texture.size.x / 2), y: (-this._engine?.fov.y / 2) + (this._texture.size.y / 2)}));
     }
 
+    public triggerCollision(id: string): void {
+        this._isCollide = true;
+        console.log(id + " is Collide: true");
+    }
+
     public update(elapsedTime: DOMHighResTimeStamp): boolean {
         if (this._engine?.window.keyLogger.get("MouseButton") === "mouseup") {
-            this._GunFiredTimer = 0;
+            this._GunFiredAnimationTimer = 0;
             this._isGunFiredAnimation = false;
+            this._isGunFired = false;
         }
 
         if (this._faceLeft)
             if (this._isJumping) {
                 if (this._engine?.window.keyLogger.get("MouseButton") === "mousedown" && !this._isGunFiredAnimation) {
-                    this._GunFiredTimer += elapsedTime;
-                    if (this._GunFiredTimer <= 200)
+                    this._GunFiredAnimationTimer += elapsedTime;
+                    if (this._GunFiredAnimationTimer <= 200)
                         this._texture = this._textures[10];
                     else this._isGunFiredAnimation = true;
                 } else this._texture = this._textures[2];
             }
             else if (this._engine?.window.keyLogger.get("MouseButton") === "mousedown" && !this._isGunFiredAnimation) {
-                this._GunFiredTimer += elapsedTime;
-                if (this._GunFiredTimer <= 200)
+                this._GunFiredAnimationTimer += elapsedTime;
+                if (this._GunFiredAnimationTimer <= 200)
                     this._texture = this._textures[8];
                 else this._isGunFiredAnimation = true;
             }
@@ -69,15 +80,15 @@ class Player extends WorldObject {
             } else this._texture = this._textures[0];
         else if (this._isJumping) {
             if (this._engine?.window.keyLogger.get("MouseButton") === "mousedown" && !this._isGunFiredAnimation) {
-                this._GunFiredTimer += elapsedTime;
-                if (this._GunFiredTimer <= 200)
+                this._GunFiredAnimationTimer += elapsedTime;
+                if (this._GunFiredAnimationTimer <= 200)
                     this._texture = this._textures[11];
                 else this._isGunFiredAnimation = true;
             } else this._texture = this._textures[3];
         }
         else if (this._engine?.window.keyLogger.get("MouseButton") === "mousedown" && !this._isGunFiredAnimation) {
-            this._GunFiredTimer += elapsedTime;
-            if (this._GunFiredTimer <= 200)
+            this._GunFiredAnimationTimer += elapsedTime;
+            if (this._GunFiredAnimationTimer <= 200)
                 this._texture = this._textures[9];
             else this._isGunFiredAnimation = true;
         }
@@ -101,24 +112,37 @@ class Player extends WorldObject {
             this._transform.x += this.moveDistance * elapsedTime;
             this._faceLeft = false;
         }
-
-        let transform = this._transform.y + (0.1 * this._fallingTimer) / 2;
-        if (transform <= 2160 - this._texture.size.y) {
-            this._fallingTimer += elapsedTime;
-        } else {
-            this._fallingTimer = 0;
-            this._isJumping = false;
-            transform = this._transform.y;
+        if (this._engine?.window.keyLogger.get("MouseButton") === "mousedown" && !this._isGunFired) {
+            if (this._faceLeft)
+                if (this._isJumping)
+                    this._world?.addWorldObject(new Bullet({x: this._transform.x, y: this._transform.y + 130}, true));
+                else this._world?.addWorldObject(new Bullet({x: this._transform.x, y: this._transform.y + 80}, true));
+            else if (this._isJumping)
+                this._world?.addWorldObject(new Bullet({x: this._transform.x + 250, y: this._transform.y + 130}));
+            else this._world?.addWorldObject(new Bullet({x: this._transform.x + 250, y: this._transform.y + 80}));
+            this._isGunFired = true;
         }
 
         if (this._engine?.window.keyLogger.get("Space") === "keydown" && !this._isJumping) {
             this._fallingTimer = -500;
             this._isJumping = true;
+            this._isCollide = false;
+        }
+
+        let transform = this._transform.y + (0.1 * this._fallingTimer) / 2;
+        if (transform <= 2160 - this._texture.size.y && !this._isCollide)
+            this._fallingTimer += elapsedTime;
+        else {
+            this._fallingTimer = 0;
+            this._isJumping = false;
+            transform = this._transform.y;
         }
 
         if (transform >= 0)
             this._transform.y = transform;
         else this._fallingTimer = 0;
+
+        this._isCollide = false;
 
         return true;
     }

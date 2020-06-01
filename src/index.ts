@@ -12,7 +12,7 @@ import World from "./Engine/World";
 import Player from "./GameLogic/Player";
 
 // Game Logic
-import Box from "./GameLogic/Box";
+import Platform from "./GameLogic/Platform";
 import FPSHUDCounter from "./GameLogic/FPSHUDCounter";
 import Background from "./GameLogic/Background";
 import {
@@ -42,8 +42,8 @@ window.onload = function () {
                     playerDeadLeft, playerDeadRight
                 ]),
                 new Background({x: 0, y: 0}, backgroundImage),
-                new Box({x: 1800, y: 900}, 100),
-                new Box({x: 1600, y: 950}, 100),
+                new Platform({x: 1800, y: 1600 }),
+                new Platform({x: 1600, y: 950}),
                 new FPSHUDCounter({x: 3, y: 20})
             ])]);
     } catch (err) {
