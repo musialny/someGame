@@ -27,7 +27,6 @@ class Background extends WorldObject {
         this._camera = undefined;
         this._timer = 0;
         this._moveDistance = 0;
-
     }
 
     public setup() {

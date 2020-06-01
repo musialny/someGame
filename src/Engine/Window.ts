@@ -29,14 +29,20 @@ class Window {
         const clearKeyDownCode = (event: KeyboardEvent) => {
             this._keyLogger.set(event.code, "keyup");
         };
+        const mouseDown = () => {
+            this._keyLogger.set("MouseButton", "mousedown");
+        };
+        const mouseUp = () => {
+            this._keyLogger.set("MouseButton", "mouseup");
+        };
+        window.addEventListener("mousedown", mouseDown);
+        window.addEventListener("mouseup", mouseUp);
         window.addEventListener("keydown", getKeyDownCode);
         window.addEventListener("keyup", clearKeyDownCode);
 
         this._mousePosition = {x: 0, y: 0};
         const getMousePositionEvent = (event: MouseEvent) => this._mousePosition = {x: event.pageX  < 0 ? 0 : event.pageX, y: event.pageY < 0 ? 0 : event.pageY};
         this._canvas.addEventListener("mousemove", getMousePositionEvent, false);
-        this._canvas.addEventListener("mouseenter", getMousePositionEvent, false);
-        this._canvas.addEventListener("mouseleave", getMousePositionEvent, false);
 
         const resizeCanvas = () => {
             this._canvas.width = document.body.clientWidth;
