@@ -54,7 +54,7 @@ class Player extends WorldObject {
         }
 
         if (this._faceLeft)
-            if (this._isJumping) {
+            if (this._isJumping && this._transform.y >= 20 && this._transform.y <= 1690) {
                 if (this._engine?.window.keyLogger.get("MouseButton") === "mousedown" && !this._isGunFiredAnimation) {
                     this._GunFiredAnimationTimer += elapsedTime;
                     if (this._GunFiredAnimationTimer <= 200)
@@ -77,7 +77,7 @@ class Player extends WorldObject {
                 else if (this._walkAnimationTimer <= 1200)
                     this._walkAnimationTimer = 0;
             } else this._texture = this._textures[0];
-        else if (this._isJumping) {
+        else if (this._isJumping && this._transform.y >= 20 && this._transform.y <= 1690) {
             if (this._engine?.window.keyLogger.get("MouseButton") === "mousedown" && !this._isGunFiredAnimation) {
                 this._GunFiredAnimationTimer += elapsedTime;
                 if (this._GunFiredAnimationTimer <= 200)
@@ -131,17 +131,19 @@ class Player extends WorldObject {
             this._isCollide = false;
         }
 
-        let transform = this._transform.y + (0.1 * this._fallingTimer) / 2;
-        if (transform <= 2160 - this._texture.size.y && !this._isCollide)
+        let transformY = this._transform.y + (0.1 * this._fallingTimer) / 2;
+        if (transformY <= 2160 - this._texture.size.y && !this._isCollide) {
             this._fallingTimer += elapsedTime;
+            this._isJumping = true;
+        }
         else {
             this._fallingTimer = 0;
             this._isJumping = false;
-            transform = this._transform.y;
+            transformY = this._transform.y;
         }
 
-        if (transform >= 0)
-            this._transform.y = transform;
+        if (transformY >= 0)
+            this._transform.y = transformY;
         else this._fallingTimer = 0;
 
         this._isCollide = false;

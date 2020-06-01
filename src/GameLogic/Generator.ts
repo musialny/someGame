@@ -103,6 +103,13 @@ class Generator extends WorldObject{
                         y: this.absoluteTransform.y + this._platformSpawnPoints[platformSpawnPoint].y
                     }));
             }
+            for (let i = 0; i < 11; i++) {
+                this._world?.addWorldObject(new Platform({
+                    x: this.absoluteTransform.x + (172 * i),
+                    y: this.absoluteTransform.y + 2090
+                }));
+                console.log(i);
+            }
             this._isMapGenerated = true;
         }
         if (!this._isMapGeneratorNextChunkSummoned)
