@@ -18,7 +18,7 @@ class Player extends WorldObject {
     private _faceLeft: boolean;
     private _isGunFiredAnimation: boolean;
     private _isGunFired: boolean;
-    private _fallingTimer: number;
+    private _fallingVelocity : number;
     private _walkAnimationTimer: number;
     private _GunFiredAnimationTimer: number;
     private _isCollide: boolean;
@@ -31,7 +31,7 @@ class Player extends WorldObject {
         this._faceLeft = false;
         this._isGunFiredAnimation = false;
         this._isGunFired = false;
-        this._fallingTimer = 0;
+        this._fallingVelocity  = 0;
         this._walkAnimationTimer = 0;
         this._GunFiredAnimationTimer = 0;
         this._isCollide = false;
@@ -54,7 +54,7 @@ class Player extends WorldObject {
         }
 
         if (this._faceLeft)
-            if (this._isJumping && this._transform.y >= 20 && this._transform.y <= 1690) {
+            if (this._isJumping && this._transform.y <= 1690) {
                 if (this._engine?.window.keyLogger.get("MouseButton") === "mousedown" && !this._isGunFiredAnimation) {
                     this._GunFiredAnimationTimer += elapsedTime;
                     if (this._GunFiredAnimationTimer <= 200)
@@ -77,7 +77,7 @@ class Player extends WorldObject {
                 else if (this._walkAnimationTimer <= 1200)
                     this._walkAnimationTimer = 0;
             } else this._texture = this._textures[0];
-        else if (this._isJumping && this._transform.y >= 20 && this._transform.y <= 1690) {
+        else if (this._isJumping && this._transform.y <= 1690) {
             if (this._engine?.window.keyLogger.get("MouseButton") === "mousedown" && !this._isGunFiredAnimation) {
                 this._GunFiredAnimationTimer += elapsedTime;
                 if (this._GunFiredAnimationTimer <= 200)
@@ -104,7 +104,7 @@ class Player extends WorldObject {
         if (this._engine?.window.keyLogger.get("KeyA") === "keydown") {
             const transform = this._transform.x - this.moveDistance * elapsedTime;
             if (transform >= 0)
-            this._transform.x = transform;
+                this._transform.x = transform;
             this._faceLeft = true;
         }
         if (this._engine?.window.keyLogger.get("KeyD") === "keydown") {
@@ -126,26 +126,23 @@ class Player extends WorldObject {
         }
 
         if (this._engine?.window.keyLogger.get("Space") === "keydown" && !this._isJumping) {
-            this._fallingTimer = -500;
+            this._fallingVelocity  = -3;
             this._isJumping = true;
             this._isCollide = false;
         }
 
-        let transformY = this._transform.y + (0.1 * this._fallingTimer) / 2;
+        let transformY = this._transform.y + this._fallingVelocity * elapsedTime;
         if (transformY <= 2160 - this._texture.size.y && !this._isCollide) {
-            this._fallingTimer += elapsedTime;
+            this._fallingVelocity += 0.007 * elapsedTime;
             this._isJumping = true;
         }
         else {
-            this._fallingTimer = 0;
+            this._fallingVelocity  = 0;
             this._isJumping = false;
             transformY = this._transform.y;
         }
 
-        if (transformY >= 0)
-            this._transform.y = transformY;
-        else this._fallingTimer = 0;
-
+        this._transform.y = transformY;
         this._isCollide = false;
 
         return true;
