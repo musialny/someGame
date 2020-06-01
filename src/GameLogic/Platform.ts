@@ -54,7 +54,7 @@ class Platform extends WorldObject {
                 && playerCollisionVertices[0].y >= platformCollisionVertices[1].y
                 && playerCollisionVertices[1].x <= platformCollisionVertices[1].x
                 && playerCollisionVertices[1].y <= platformCollisionVertices[1].y)
-                this._player.triggerCollision(this.id);
+                this._player.triggerCollision();
         }
         return true;
     }

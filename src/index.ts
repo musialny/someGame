@@ -12,7 +12,6 @@ import World from "./Engine/World";
 import Player from "./GameLogic/Player";
 
 // Game Logic
-import Platform from "./GameLogic/Platform";
 import FPSHUDCounter from "./GameLogic/FPSHUDCounter";
 import Background from "./GameLogic/Background";
 import {
@@ -30,21 +29,21 @@ import {
     playerWalking1Right, playerWalking2Left,
     playerWalking2Right
 } from "./Assets";
+import Generator from "./GameLogic/Generator";
 
 window.onload = function () {
     try {
         new Engine(new Window(<HTMLCanvasElement> document.getElementById("canvas"), "#070c19"), [
             new World([
-                new Player({x: 1300, y: 800}, [
+                new Player({x: 0, y: 630}, [
                     playerStandLeft, playerStandRight, playerJumpLeft, playerJumpRight,
                     playerWalking1Left, playerWalking2Left, playerWalking1Right, playerWalking2Right,
                     playerGunLeft, playerGunRight, playerJumpArmoredLeft, playerJumpArmoredRight,
                     playerDeadLeft, playerDeadRight
                 ]),
                 new Background({x: 0, y: 0}, backgroundImage),
-                new Platform({x: 1800, y: 1600 }),
-                new Platform({x: 1600, y: 950}),
-                new FPSHUDCounter({x: 3, y: 20})
+                new FPSHUDCounter({x: 3, y: 20}),
+                new Generator({x: 0, y: 0})
             ])]);
     } catch (err) {
         console.log(`{Error -> ${err.message}}`);

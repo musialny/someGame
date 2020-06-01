@@ -42,9 +42,8 @@ class Player extends WorldObject {
         this._world?.addWorldObject(new Camera({x: (-this._engine?.fov.x / 2) + (this._texture.size.x / 2), y: (-this._engine?.fov.y / 2) + (this._texture.size.y / 2)}));
     }
 
-    public triggerCollision(id: string): void {
+    public triggerCollision(): void {
         this._isCollide = true;
-        console.log(id + " is Collide: true");
     }
 
     public update(elapsedTime: DOMHighResTimeStamp): boolean {
@@ -112,6 +111,9 @@ class Player extends WorldObject {
             this._transform.x += this.moveDistance * elapsedTime;
             this._faceLeft = false;
         }
+        if (this._engine?.window.keyLogger.get("KeyS") === "keydown")
+            this._isCollide = false;
+
         if (this._engine?.window.keyLogger.get("MouseButton") === "mousedown" && !this._isGunFired) {
             if (this._faceLeft)
                 if (this._isJumping)

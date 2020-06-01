@@ -24,7 +24,7 @@ class Bullet extends WorldObject {
 
     public update(elapsedTime: DOMHighResTimeStamp): boolean {
         this._lifetime += elapsedTime;
-        if (this._lifetime >= 10000)
+        if (this._lifetime >= 700)
             this._world?.removeWorldObject(this.id);
 
         if (this._isLeft)

@@ -88,8 +88,8 @@ class Engine {
                     if (transform.x + cameraPosition.x + size.x >= cameraPosition.x &&
                         transform.y + cameraPosition.y + size.y >= cameraPosition.y &&
                         transform.x <= this._window.contextSize.x && transform.y <= this._window.contextSize.y)
-                        value.texture.draw(<CanvasRenderingContext2D>this._window.context, transform, size);
-                    value.texture.drawAbsolute(<CanvasRenderingContext2D>this._window.context, value.transform);
+                        value.texture.draw(<CanvasRenderingContext2D> this._window.context, transform, size);
+                    value.texture.drawAbsolute(<CanvasRenderingContext2D> this._window.context, value.transform);
                 }
             }
         }
