@@ -7,9 +7,9 @@
 
 import WorldObject from "../Engine/WorldObject";
 import {Vector2D} from "../Engine/Containers";
-import {ImageTexture} from "../Engine/Texture";
 import Player from "./Player";
 import Camera from "./Camera";
+import {backgroundImage} from "../Assets";
 
 class Background extends WorldObject {
     private static _id: number = 0;
@@ -20,8 +20,8 @@ class Background extends WorldObject {
     private _timer: number;
     private _moveDistance: number;
 
-    constructor(transform: Vector2D<number>, texture: ImageTexture) {
-        super("Background" + Background._id++, transform, texture);
+    constructor(transform: Vector2D<number>) {
+        super("Background" + Background._id++, transform, backgroundImage);
         this._isNextBackgroundSummoned = false;
         this._player = undefined;
         this._camera = undefined;
@@ -42,7 +42,7 @@ class Background extends WorldObject {
                 && this._player.absoluteTransform.y + this._player.texture.size.y >= this._transform.y
                 && this._player.absoluteTransform.x <= this._transform.x + this._texture.size.x
                 && this._player.absoluteTransform.y <= this._transform.y + this._texture.size.y) {
-                this._world?.addWorldObject(new Background({x: this._transform.x + 1920, y: 0}, <ImageTexture> this.texture));
+                this._world?.addWorldObject(new Background({x: this._transform.x + 1920, y: 0}));
                 this._isNextBackgroundSummoned = true;
             }
         }

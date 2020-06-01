@@ -10,6 +10,16 @@ import {Vector2D} from "../Engine/Containers";
 import Texture from "../Engine/Texture";
 import Camera from "./Camera";
 import Bullet from "./Bullet";
+import {
+    playerDeadLeft, playerDeadRight,
+    playerGunLeft, playerGunRight, playerJumpArmoredLeft, playerJumpArmoredRight,
+    playerJumpLeft,
+    playerJumpRight,
+    playerStandLeft,
+    playerStandRight,
+    playerWalking1Left, playerWalking1Right,
+    playerWalking2Left, playerWalking2Right
+} from "../Assets";
 
 class Player extends WorldObject {
     public readonly moveDistance: number;
@@ -23,10 +33,15 @@ class Player extends WorldObject {
     private _GunFiredAnimationTimer: number;
     private _isCollide: boolean;
 
-    constructor(transform: Vector2D<number>, textures: Texture[]) {
-        super("Player", transform, textures[1]);
+    constructor(transform: Vector2D<number>) {
+        super("Player", transform, playerStandRight);
         this.moveDistance = 1.5;
-        this._textures = textures;
+        this._textures = [
+            playerStandLeft, playerStandRight, playerJumpLeft, playerJumpRight,
+            playerWalking1Left, playerWalking2Left, playerWalking1Right, playerWalking2Right,
+            playerGunLeft, playerGunRight, playerJumpArmoredLeft, playerJumpArmoredRight,
+            playerDeadLeft, playerDeadRight
+        ];
         this._isJumping = false;
         this._faceLeft = false;
         this._isGunFiredAnimation = false;
