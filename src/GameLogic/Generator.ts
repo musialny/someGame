@@ -108,7 +108,6 @@ class Generator extends WorldObject{
                     x: this.absoluteTransform.x + (172 * i),
                     y: this.absoluteTransform.y + 2090
                 }));
-                console.log(i);
             }
             this._isMapGenerated = true;
         }
