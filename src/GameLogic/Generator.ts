@@ -30,6 +30,22 @@ class Generator extends WorldObject{
             },
             {
                 x: 350 * 2,
+                y: 460
+            },
+            {
+                x: 350,
+                y: 460 * 2
+            },
+            {
+                x: 350 * 4,
+                y: 460
+            },
+            {
+                x: 350 * 4,
+                y: 460 * 2
+            },
+            {
+                x: 350 * 2,
                 y: 460 * 2
             },
             {
@@ -74,7 +90,7 @@ class Generator extends WorldObject{
     public update(elapsedTime: DOMHighResTimeStamp): boolean {
         if (!this._isMapGenerated) {
             const avoidDuplication = new Map<number, boolean>();
-            for (let i = 0; i < 5; i++) {
+            for (let i = 0; i < 6; i++) {
                 const platformLength = Math.floor(Math.random() * (5 - 1) + 1);
                 let platformSpawnPoint = 0;
                 do {
