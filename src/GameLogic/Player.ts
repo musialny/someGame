@@ -70,11 +70,11 @@ class Player extends WorldObject {
             }
             else if (this._engine?.window.keyLogger.get("KeyA") === "keydown") {
                 this._walkAnimationTimer += elapsedTime;
-                if (this._walkAnimationTimer <= 400)
+                if (this._walkAnimationTimer <= 200)
                     this._texture = this._textures[5];
-                else if (this._walkAnimationTimer <= 800)
+                else if (this._walkAnimationTimer <= 400)
                     this._texture = this._textures[4];
-                else if (this._walkAnimationTimer <= 1200)
+                else if (this._walkAnimationTimer <= 800)
                     this._walkAnimationTimer = 0;
             } else this._texture = this._textures[0];
         else if (this._isJumping && this._transform.y <= 1690) {
@@ -93,11 +93,11 @@ class Player extends WorldObject {
         }
         else if (this._engine?.window.keyLogger.get("KeyD") === "keydown") {
             this._walkAnimationTimer += elapsedTime;
-            if (this._walkAnimationTimer <= 400)
+            if (this._walkAnimationTimer <= 200)
                 this._texture = this._textures[7];
-            else if (this._walkAnimationTimer <= 800)
+            else if (this._walkAnimationTimer <= 400)
                 this._texture = this._textures[6];
-            else if (this._walkAnimationTimer <= 1200)
+            else if (this._walkAnimationTimer <= 800)
                 this._walkAnimationTimer = 0;
         } else this._texture = this._textures[1];
 
