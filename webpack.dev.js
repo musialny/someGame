@@ -23,7 +23,7 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            title: "Some Nois Game - Dev Build",
+            title: "Some Noice Game - Dev Build",
             template: "./src/index.html"
         })
     ],

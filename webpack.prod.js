@@ -24,7 +24,7 @@ module.exports = {
     plugins: [
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
-            title: "Some Nois Game",
+            title: "Some Noice Game",
             template: "./src/index.html"
         })
     ],
