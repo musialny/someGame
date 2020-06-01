@@ -52,12 +52,12 @@ import bulletLeftAssetImage from "./Resources/Bullet/bullet_left.png";
 import bulletRightAssetImage from "./Resources/Bullet/bullet_right.png";
 
 const backgroundImage = new ImageTexture({x: 1920, y: 2160}, 0, backgroundAssetImage),
-    playerDeadLeft = new ImageTexture({x: 300, y: 450}, 2, playerDeadLeftAssetImage),
-    playerDeadRight = new ImageTexture({x: 300, y: 450}, 2, playerDeadRightAssetImage),
-    playerGunLeft = new ImageTexture({x: 300, y: 450}, 2, playerGunLeftAssetImage),
-    playerGunRight = new ImageTexture({x: 300, y: 450}, 2, playerGunRightAssetImage),
-    playerJumpArmoredLeft = new ImageTexture({x: 300, y: 450}, 2, playerJumpArmoredLeftAssetImage),
-    playerJumpArmoredRight = new ImageTexture({x: 300, y: 450}, 2, playerJumpArmoredRightAssetImage),
+    playerDeadLeft = new ImageTexture({x: 460, y: 300}, 2, playerDeadLeftAssetImage),
+    playerDeadRight = new ImageTexture({x: 460, y: 300}, 2, playerDeadRightAssetImage),
+    playerGunLeft = new ImageTexture({x: 320, y: 450}, 2, playerGunLeftAssetImage, {x: -91, y: 0}),
+    playerGunRight = new ImageTexture({x: 320, y: 450}, 2, playerGunRightAssetImage, {x: 71, y: 0}),
+    playerJumpArmoredLeft = new ImageTexture({x: 300, y: 450}, 2, playerJumpArmoredLeftAssetImage, {x: -46, y: 0}),
+    playerJumpArmoredRight = new ImageTexture({x: 300, y: 450}, 2, playerJumpArmoredRightAssetImage, {x: 46, y: 0}),
     playerJumpLeft = new ImageTexture({x: 300, y: 450}, 2, playerJumpLeftAssetImage),
     playerJumpRight = new ImageTexture({x: 300, y: 450}, 2, playerJumpRightAssetImage),
     playerStandLeft = new ImageTexture({x: 300, y: 450}, 2, playerStandLeftAssetImage),

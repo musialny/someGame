@@ -83,10 +83,13 @@ class ImageTexture extends Texture {
     private readonly _image: HTMLImageElement;
     private _placeholder: RectanglePrimitive;
     private _isImageLoaded: boolean;
-    constructor(size: Vector2D<number>, zIndex: number, url: string, placeholderColor: string = "#e600ff") {
+    private _moveOffset: Vector2D<number>;
+
+    constructor(size: Vector2D<number>, zIndex: number, url: string, moveOffset: Vector2D<number> = {x: 0, y: 0}, placeholderColor: string = "#e600ff") {
         super(size, zIndex);
         this._placeholder = new RectanglePrimitive(size, zIndex, placeholderColor);
         this._isImageLoaded = false;
+        this._moveOffset = moveOffset;
         this._image = new Image();
         this._image.src = url;
         this._image.addEventListener("load", () => {
@@ -96,7 +99,7 @@ class ImageTexture extends Texture {
 
     public draw(context: CanvasRenderingContext2D, pos: Vector2D<number>, size: Vector2D<number>) {
         if (this._isImageLoaded)
-            context.drawImage(this._image, pos.x, pos.y, size.x, size.y);
+            context.drawImage(this._image, pos.x + this._moveOffset.x, pos.y + this._moveOffset.y, size.x, size.y);
         else this._placeholder.draw(context, pos, size);
     }
 

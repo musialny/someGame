@@ -117,11 +117,11 @@ class Player extends WorldObject {
         if (this._engine?.window.keyLogger.get("MouseButton") === "mousedown" && !this._isGunFired) {
             if (this._faceLeft)
                 if (this._isJumping)
-                    this._world?.addWorldObject(new Bullet({x: this._transform.x, y: this._transform.y + 130}, true));
-                else this._world?.addWorldObject(new Bullet({x: this._transform.x, y: this._transform.y + 80}, true));
+                    this._world?.addWorldObject(new Bullet({x: this._transform.x - 40, y: this._transform.y + 130}, true));
+                else this._world?.addWorldObject(new Bullet({x: this._transform.x - 60, y: this._transform.y + 80}, true));
             else if (this._isJumping)
-                this._world?.addWorldObject(new Bullet({x: this._transform.x + 250, y: this._transform.y + 130}));
-            else this._world?.addWorldObject(new Bullet({x: this._transform.x + 250, y: this._transform.y + 80}));
+                this._world?.addWorldObject(new Bullet({x: this._transform.x + 290, y: this._transform.y + 120}));
+            else this._world?.addWorldObject(new Bullet({x: this._transform.x + 310, y: this._transform.y + 80}));
             this._isGunFired = true;
         }
 
