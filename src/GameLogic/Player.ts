@@ -11,14 +11,20 @@ import Texture from "../Engine/Texture";
 import Camera from "./Camera";
 import Bullet from "./Bullet";
 import {
-    playerDeadLeft, playerDeadRight,
-    playerGunLeft, playerGunRight, playerJumpArmoredLeft, playerJumpArmoredRight,
+    playerDeadLeft,
+    playerDeadRight,
+    playerGunLeft,
+    playerGunRight,
+    playerJumpArmoredLeft,
+    playerJumpArmoredRight,
     playerJumpLeft,
     playerJumpRight,
     playerStandLeft,
     playerStandRight,
-    playerWalking1Left, playerWalking1Right,
-    playerWalking2Left, playerWalking2Right
+    playerWalking1Left,
+    playerWalking1Right,
+    playerWalking2Left,
+    playerWalking2Right
 } from "../Assets";
 
 class Player extends WorldObject {

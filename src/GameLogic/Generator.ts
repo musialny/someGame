@@ -10,6 +10,7 @@ import {Vector2D} from "../Engine/Containers";
 import {EmptyPrimitive} from "../Engine/Texture";
 import Platform from "./Platform";
 import Player from "./Player";
+import NPC from "./NPC";
 
 class Generator extends WorldObject{
     private static _id: number = 0;
@@ -102,6 +103,13 @@ class Generator extends WorldObject{
                         x: this.absoluteTransform.x + this._platformSpawnPoints[platformSpawnPoint].x + (172 * o),
                         y: this.absoluteTransform.y + this._platformSpawnPoints[platformSpawnPoint].y
                     }));
+                if (platformLength > 2) {
+                    if (Math.floor(Math.random() * (100 - 1) + 1) >= 60)
+                        this._world?.addWorldObject(new NPC({
+                            x: this.absoluteTransform.x + this._platformSpawnPoints[platformSpawnPoint].x,
+                            y: this.absoluteTransform.y + this._platformSpawnPoints[platformSpawnPoint].y - 450
+                        }, platformLength));
+                }
             }
             for (let i = 0; i < 11; i++) {
                 this._world?.addWorldObject(new Platform({
