@@ -32,7 +32,8 @@ class DebugData extends WorldObject {
         }
         (<TextHUDPrimitive> this._texture).text = "FPS: " + this._fpsCounter
             + " | Objects Quantity: " + this._world?.worldObjectsCount
-            + " | Frametime: " + elapsedTime.toPrecision(5);
+            + " | Frametime: " + elapsedTime.toPrecision(5)
+            + ` | Context Size: { x: ${this._engine?.window.contextSize.x} } { y: ${this._engine?.window.contextSize.y} }`;
         this._fps++;
         return true;
     }
