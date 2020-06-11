@@ -9,13 +9,13 @@ import WorldObject from "../Engine/WorldObject";
 import {Vector2D} from "../Engine/Containers";
 import {TextHUDPrimitive} from "../Engine/Texture";
 
-class FPSHUDCounter extends WorldObject {
+class DebugData extends WorldObject {
     private _fps: number;
     private _fpsCounter: number;
     private _timer: number;
 
     constructor(transform: Vector2D<number>) {
-        super("FPSHUDCounter", transform, new TextHUDPrimitive("OwO", "24px serif", "#ffffff"));
+        super("DebugData", transform, new TextHUDPrimitive("OwO", 24, "serif", "#ffffff"));
         this._fps = 0;
         this._fpsCounter = 0;
         this._timer = 0;
@@ -30,10 +30,10 @@ class FPSHUDCounter extends WorldObject {
             this._fpsCounter = this._fps;
             this._fps = 0;
         }
-        (<TextHUDPrimitive> this._texture).text = "FPS: " + this._fpsCounter;
+        (<TextHUDPrimitive> this._texture).text = "FPS: " + this._fpsCounter + " | Objects Quantity: " + this._world?.worldObjectsCount;
         this._fps++;
         return true;
     }
 }
 
-export default FPSHUDCounter;
+export default DebugData;

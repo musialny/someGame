@@ -12,7 +12,7 @@ import World from "./Engine/World";
 import Player from "./GameLogic/Player";
 
 // Game Logic
-import FPSHUDCounter from "./GameLogic/FPSHUDCounter";
+import DebugData from "./GameLogic/DebugData";
 import Background from "./GameLogic/Background";
 import Generator from "./GameLogic/Generator";
 
@@ -22,7 +22,7 @@ window.onload = function () {
             new World([
                 new Player({x: 0, y: 630}),
                 new Background({x: 0, y: 0}),
-                new FPSHUDCounter({x: 3, y: 20}),
+                new DebugData({x: 10, y: 10}),
                 new Generator({x: 0, y: 0})
             ])]);
     } catch (err) {

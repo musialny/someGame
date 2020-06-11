@@ -69,12 +69,25 @@ class Engine {
                         x: value.absoluteTransform.x - cameraPosition.x + value.texture.offset.x,
                         y: value.absoluteTransform.y - cameraPosition.y + value.texture.offset.y
                     };
+                    let absoluteTransform: Vector2D<number> = {
+                        x: value.absoluteTransform.x,
+                        y: value.absoluteTransform.y
+                    };
+
                     const transformProportions: Vector2D<number> = {
                         x: (this.fov.x - transform.x) / this.fov.x,
                         y: (this.fov.y - transform.y) / this.fov.y,
                     };
+                    const absoluteTransformProportions: Vector2D<number> = {
+                        x: (this.fov.x - absoluteTransform.x) / this.fov.x,
+                        y: (this.fov.y - absoluteTransform.y) / this.fov.y,
+                    };
+
                     transform.x = this._window.contextSize.x - (this._window.contextSize.x * transformProportions.x);
                     transform.y = this._window.contextSize.y - (this._window.contextSize.y * transformProportions.y);
+
+                    absoluteTransform.x = this._window.contextSize.x - (this._window.contextSize.x * absoluteTransformProportions.x);
+                    absoluteTransform.y = this._window.contextSize.y - (this._window.contextSize.y * absoluteTransformProportions.y);
 
                     const sizeProportions: Vector2D<number> = {
                         x: value.texture.size.x / this.fov.x,
@@ -89,7 +102,7 @@ class Engine {
                         transform.y + cameraPosition.y + size.y >= cameraPosition.y &&
                         transform.x <= this._window.contextSize.x && transform.y <= this._window.contextSize.y)
                         value.texture.draw(<CanvasRenderingContext2D> this._window.context, transform, size);
-                    value.texture.drawAbsolute(<CanvasRenderingContext2D> this._window.context, value.transform);
+                    value.texture.drawAbsolute(<CanvasRenderingContext2D> this._window.context, absoluteTransform, this.fov, this._window.contextSize);
                 }
             }
         }
