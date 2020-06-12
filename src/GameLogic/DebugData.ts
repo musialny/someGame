@@ -15,7 +15,7 @@ class DebugData extends WorldObject {
     private _timer: number;
 
     constructor(transform: Vector2D<number>) {
-        super("DebugData", transform, new TextHUDPrimitive("OwO", 24, "serif", "#ffffff"));
+        super("DebugData", transform, new TextHUDPrimitive("OwO", 24, "helvetica", "#ffffff"));
         this._fps = 0;
         this._fpsCounter = 0;
         this._timer = 0;
@@ -32,8 +32,8 @@ class DebugData extends WorldObject {
         }
         (<TextHUDPrimitive> this._texture).text = "FPS: " + this._fpsCounter
             + " | Objects Quantity: " + this._world?.worldObjectsCount
-            + " | Frametime: " + elapsedTime.toPrecision(5) + " ms"
-            + ` | Context Size: { x: ${this._engine?.window.contextSize.x} } { y: ${this._engine?.window.contextSize.y} }`;
+            + ` | Context Size: { x: ${this._engine?.window.contextSize.x} } { y: ${this._engine?.window.contextSize.y} }`
+            + " | Frametime: " + elapsedTime.toPrecision(5) + " ms";
         this._fps++;
         return true;
     }
