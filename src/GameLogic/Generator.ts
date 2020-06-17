@@ -12,7 +12,7 @@ import Platform from "./Platform";
 import Player from "./Player";
 import NPC from "./NPC";
 
-class Generator extends WorldObject{
+class Generator extends WorldObject {
     private static _id: number = 0;
     private _isMapGenerated: boolean
     private _isMapGeneratorNextChunkSummoned: boolean;

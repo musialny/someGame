@@ -10,7 +10,6 @@ import {Vector2D} from "../Engine/Containers";
 import {platformImage} from "../Assets";
 import Player from "./Player";
 
-
 class Platform extends WorldObject {
     private static _id: number = 0;
     private _player: Player | undefined;
