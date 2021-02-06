@@ -11,7 +11,7 @@
   },
   "author": "musialny.dev",
   "license": "ISC",
-  "dependencies": {
+  "devDependencies": {
     "clean-webpack-plugin": "^3.0.0",
     "file-loader": "^6.0.0",
     "html-webpack-plugin": "^4.3.0",
