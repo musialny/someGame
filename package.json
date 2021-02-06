@@ -10,7 +10,6 @@
     "build-reload": "webpack --config webpack.dev.js --watch"
   },
   "author": "musialny.dev",
-  "license": "ISC",
   "devDependencies": {
     "clean-webpack-plugin": "^3.0.0",
     "file-loader": "^6.0.0",
